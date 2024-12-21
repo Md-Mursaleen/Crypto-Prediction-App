@@ -130,7 +130,11 @@ const StockDetailsScreen = ({ route }) => {
     }
 
     if (error) {
-        return <Text style={styles.errorTextStyle}>{error}</Text>;
+        return (
+            <View style={styles.errorContainer}>
+                <Text style={styles.errorTextStyle}>{error}</Text>
+            </View>
+        );
     }
 
     const chartData = historicalData.length ?
@@ -445,11 +449,17 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
     },
-    errorTextStyle: {
+    errorContainer: {
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        color: '#D0585C',
+    },
+    errorTextStyle: {
+        fontSize: 18,
+        fontWeight: '500',
+        fontFamily: 'Inter-SemiBold',
+        color: '#FF6B6B',
+        textAlign: 'center',
     },
     detailsBottomContainer: {
         marginTop: normalize(30),
