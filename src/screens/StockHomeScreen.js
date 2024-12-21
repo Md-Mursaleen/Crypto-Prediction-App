@@ -25,6 +25,7 @@ const StockHomeScreen = () => {
     const [stocksData, setStocksData] = useState([]);
     const [page, setPage] = useState(0);
     const [hasMore, setHasMore] = useState(true);
+    const [error, setError] = useState(null);
 
     const PAGE_SIZE = 30;
 
@@ -32,6 +33,7 @@ const StockHomeScreen = () => {
         try {
             if (loading) return;
             setLoading(true);
+
             const symbolsBatch = SYMBOLS.slice(page * PAGE_SIZE, (page + 1) * PAGE_SIZE);
 
             if (symbolsBatch.length === 0) {
@@ -42,6 +44,7 @@ const StockHomeScreen = () => {
             const URL = `${STOCK_BASE_URL}${'quote/'}${symbolsBatch.join(',')}${'?apikey='}${STOCK_API_KEY}`;
 
             const response = await fetch(URL);
+            if (!response.ok) throw new Error('Failed to fetch stock data');
             const data = await response.json();
 
             const formattedData = data.map((item) => ({
@@ -66,6 +69,7 @@ const StockHomeScreen = () => {
             }
         } catch (error) {
             console.error('Error fetching stocks data:', error);
+            setError('Unable to fetch stock data. Please try again.');
         } finally {
             setLoading(false);
             if (isRefreshing) setRefreshing(false);
@@ -86,6 +90,14 @@ const StockHomeScreen = () => {
         if (!hasMore || loading) return;
         fetchStocksData(false);
     };
+
+    if (error) {
+        return (
+            <View style={styles.errorContainer}>
+                <Text style={styles.errorTextStyle}>{error}</Text>
+            </View>
+        );
+    }
 
     // if (loading) {
     //     return <ActivityIndicator style={styles.loadingStyle} size='large' color='#FFFFFF' />;
@@ -140,5 +152,17 @@ const styles = StyleSheet.create({
     loadingStyle: {
         flex: 1,
         justifyContent: 'center',
+    },
+    errorContainer: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    errorTextStyle: {
+        fontSize: 18,
+        fontWeight: '500',
+        fontFamily: 'Inter-SemiBold',
+        color: '#FF6B6B',
+        textAlign: 'center',
     },
 });
