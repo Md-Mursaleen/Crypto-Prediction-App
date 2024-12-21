@@ -99,5 +99,6 @@ const styles = StyleSheet.create({
         fontWeight: '500',
         fontFamily: 'Inter-SemiBold',
         color: '#FF6B6B',
+        textAlign: 'center',
     },
 });
