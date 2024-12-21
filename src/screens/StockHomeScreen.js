@@ -109,8 +109,7 @@ const StockHomeScreen = () => {
                 onEndReachedThreshold={0.5}
                 ListFooterComponent={
                     loading && !refreshing ? <ActivityIndicator size='large' color='#FFFFFF' /> : null
-                }
-            />
+                } />
         </View>
     );
 }

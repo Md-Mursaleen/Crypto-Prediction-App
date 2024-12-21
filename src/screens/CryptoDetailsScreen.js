@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, Image, StyleSheet, Dimensions, ActivityIndicator, Keyboard, TouchableOpacity, Linking } from 'react-native';
-import { LineChart } from 'react-native-wagmi-charts';
-import { CandlestickChart } from 'react-native-wagmi-charts';
+import { View, Text, Image, StyleSheet, Dimensions, ActivityIndicator, Keyboard, Linking } from 'react-native';
+import { LineChart, CandlestickChart } from 'react-native-wagmi-charts';
 import { useNavigation } from '@react-navigation/native';
 import { getCryptoData, getChartData, getCandleChartData } from '../service/requests';
 import { useWatchlist } from '../../src/contexts/WatchlistContext';
